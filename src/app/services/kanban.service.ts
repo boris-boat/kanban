@@ -23,6 +23,12 @@ export class KanbanService {
       this.activeUser = user
       this.router.navigate(['/home'])
     }
+    else {
+      this.router.navigate(['/'])
 
+    }
+  }
+  createUser(user: any) {
+    return this.http.post(this.url + "/createUser", user)
   }
 }

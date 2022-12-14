@@ -1,61 +1,74 @@
 <div class="container is-fluid">
-  <div class="columns forma is-vcentered is-centered">
-    <form *ngIf="show.signIn" class="box column is-3" [formGroup]="form">
-      <div class="field">
-        <label class="label">Username</label>
-        <div class="control">
-          <input class="input" type="email" formControlName="username" />
-        </div>
-      </div>
+  <div class="section">
+    <div class="columns forma is-vcentered is-centered">
+      <form *ngIf="show.signIn" class="box column is-3" [formGroup]="form">
+        <div class="field">
+          <h1 class="has-text-centered is-size-2">Kanban Board</h1>
 
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input
-            class="input"
-            type="password"
-            placeholder="********"
-            formControlName="password"
-          />
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="email" formControlName="username" />
+          </div>
         </div>
-      </div>
-      <button
-        class="button is-primary"
-        type="submit"
-        (click)="login()"
-        [ngClass]="{ 'is-loading': isLoading }"
-      >
-        Sign in
-      </button>
-      <span>New User?</span><span><a (click)="switchForms()">Sign up</a></span>
-    </form>
-    <form *ngIf="show.signUp" class="box column is-3" [formGroup]="form">
-      <div class="field">
-        <label class="label">Username</label>
-        <div class="control">
-          <input class="input" type="email" formControlName="username" />
-        </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input
-            class="input"
-            type="password"
-            placeholder="********"
-            formControlName="password"
-          />
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" formControlName="password" />
+          </div>
         </div>
-      </div>
-      <button
-        class="button is-primary"
-        type="submit"
-        (click)="signUp()"
-        [ngClass]="{ 'is-loading': isLoading }"
-      >
-        Sign up
-      </button>
-    </form>
+        <div class="columns">
+          <div class="column is-6">
+            <button
+              [disabled]="!form.valid"
+              class="button is-primary"
+              type="submit"
+              (click)="login()"
+              [ngClass]="{ 'is-loading': isLoading }"
+            >
+              Sign in
+            </button>
+          </div>
+          <div class="column">
+            <span class="mr-3">New User?</span
+            ><span><a (click)="switchForms()">Sign up</a></span>
+          </div>
+        </div>
+      </form>
+      <form *ngIf="show.signUp" class="box column is-3" [formGroup]="form">
+        <div class="field">
+          <h1 class="has-text-centered is-size-2">Kanban Board</h1>
+
+          <label class="label">Username</label>
+          <div class="control">
+            <input class="input" type="email" formControlName="username" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" formControlName="password" />
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-4">
+            <button
+              [disabled]="!form.valid"
+              class="button is-primary"
+              type="submit"
+              (click)="signUp()"
+              [ngClass]="{ 'is-loading': isLoading }"
+            >
+              Sign Up
+            </button>
+          </div>
+          <div class="column">
+            <span class="mr-3">Allready have an account?</span
+            ><span><a (click)="switchForms()">Sign in</a></span>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

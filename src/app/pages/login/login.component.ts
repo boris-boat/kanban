@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   }
   isLoading = false
   form: FormGroup = new FormGroup({
-    username: new FormControl(""),
-    password: new FormControl("")
+    username: new FormControl("", Validators.required),
+    password: new FormControl("", Validators.required)
   })
   constructor(private service: KanbanService, private notifierService: NotifierService) { }
 
@@ -31,18 +31,28 @@ export class LoginComponent implements OnInit {
         this.notifierService.notify('error', 'Wrong login credentials');
         setTimeout(() => {
           this.form.reset()
-          //testiramo
           this.isLoading = false
           this.notifierService.hideAll()
-        }, 1500);
+        }, 500);
       }
       this.service.setActiveUser(res)
     }
     )
   }
   signUp() {
-    this.notifierService.notify('success', 'User created');
-    this.switchForms()
+    this.service.createUser(this.form.value).subscribe((res: any) => {
+      if (res.text) {
+        this.notifierService.notify('error', 'Username exists');
+        this.form.reset()
+      }
+      else {
+        this.notifierService.notify('sucess', 'User created');
+        this.form.reset()
+        this.switchForms()
+      }
+
+    })
+
 
 
   }

@@ -1,48 +1,120 @@
 <div class="root">
-  <div class="navbar has-background-dark">
-    <div class="navbar-brand">
-      <div class="navbar-item">
-        <h1 class="app-name has-gradient-text">Kanban</h1>
+  <div class="navbar nav-wrapper">
+    <div class="columns navbar-items has-background-dark">
+      <div class="column is-10">
+        <div class="navbar-brand">
+          <div class="navbar-item">
+            <h1 class="app-name has-gradient-text">Kanban</h1>
+          </div>
+        </div>
+      </div>
+      <div class="column is-right mt-1">
+        <div class="navbar-item">
+          <h1 class="logout-btn" (click)="logout()">Logout</h1>
+        </div>
       </div>
     </div>
   </div>
   <div class="board">
     <div class="board-bar">
-      <div class="board-name">{{ user.username }}'s board</div>
+      <div class="columns is-vcentered">
+        <div class="column is-1" style="padding: 0">
+          <div class="board-name">{{ user.username }}'s board</div>
+        </div>
+        <div class="column is-2">
+          <button
+            class="button is-primary mr-2"
+            (click)="show.addItems = !show.addItems"
+          >
+            {{ show.addItems ? "Hide Add" : "Add Items" }}
+          </button>
+          <button
+            class="button is-primary"
+            (click)="show.editItems = !show.editItems"
+          >
+            {{ show.editItems ? "Hide Edit" : "Edit Items" }}
+          </button>
+        </div>
+        <div class="column addItemsWrapper" *ngIf="show.addItems">
+          <div class="columns is-vcentered add-items">
+            <div class="column is-2">
+              <input
+                class="input is-small is-1"
+                type="text"
+                [formControl]="newColumn"
+              />
+            </div>
+            <button
+              class="button is-primary"
+              (click)="addColumn()"
+              [disabled]="!newColumn.valid"
+            >
+              Add column
+            </button>
+            <div class="column is-2">
+              <input
+                class="input is-small"
+                type="text "
+                [formControl]="newItem"
+              />
+            </div>
+            <button
+              class="button is-primary"
+              (click)="addItem()"
+              [disabled]="!newItem.valid"
+            >
+              Add item
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
-        <div class="board-column" *ngFor="let item of user.columns">
-          <div class="column-title">{{ item.name }}</div>
+        <div class="board-column" *ngFor="let column of user.columns">
+          <div class="column-title">
+            <div class="columns">
+              <div class="column is-11">
+                {{ column.name }}
+              </div>
+              <div
+                class="column"
+                *ngIf="show.editItems"
+                style="color: red; cursor: pointer"
+                (click)="removeColumn(column)"
+              >
+                X
+              </div>
+            </div>
+          </div>
           <div
             class="tasks-container"
             cdkDropList
-            [cdkDropListData]="item.items"
+            [cdkDropListData]="column.items"
             (cdkDropListDropped)="drop($event)"
           >
             <div
               class="task"
               cdkDrag
-              [cdkDragData]="item"
-              *ngFor="let item of item.items"
+              [cdkDragData]="column"
+              *ngFor="let item of column.items"
             >
-              {{ item.text }}
+              <div class="columns" style="width: 100%">
+                <div class="column is-11">
+                  {{ item.text }}
+                </div>
+                <div
+                  class="column ml-5"
+                  *ngIf="show.editItems"
+                  style="color: red; cursor: pointer"
+                  (click)="removeItem(item, column)"
+                >
+                  X
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <!-- <div class="board-column">
-          <div class="column-title">Doing</div>
-          <div
-            class="tasks-container"
-            cdkDropList
-            #doneList="cdkDropList"
-            [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[doneList]"
-            (cdkDropListDropped)="drop($event)"
-          >
-            <div class="task" cdkDrag *ngFor="let item of done">{{ item }}</div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
