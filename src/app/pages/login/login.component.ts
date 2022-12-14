@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
         this.notifierService.notify('error', 'Wrong login credentials');
         setTimeout(() => {
           this.form.reset()
+          //testiramo
           this.isLoading = false
           this.notifierService.hideAll()
         }, 1500);
