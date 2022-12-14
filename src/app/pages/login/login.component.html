@@ -1,0 +1,61 @@
+<div class="container is-fluid">
+  <div class="columns forma is-vcentered is-centered">
+    <form *ngIf="show.signIn" class="box column is-3" [formGroup]="form">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input class="input" type="email" formControlName="username" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input
+            class="input"
+            type="password"
+            placeholder="********"
+            formControlName="password"
+          />
+        </div>
+      </div>
+      <button
+        class="button is-primary"
+        type="submit"
+        (click)="login()"
+        [ngClass]="{ 'is-loading': isLoading }"
+      >
+        Sign in
+      </button>
+      <span>New User?</span><span><a (click)="switchForms()">Sign up</a></span>
+    </form>
+    <form *ngIf="show.signUp" class="box column is-3" [formGroup]="form">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input class="input" type="email" formControlName="username" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input
+            class="input"
+            type="password"
+            placeholder="********"
+            formControlName="password"
+          />
+        </div>
+      </div>
+      <button
+        class="button is-primary"
+        type="submit"
+        (click)="signUp()"
+        [ngClass]="{ 'is-loading': isLoading }"
+      >
+        Sign up
+      </button>
+    </form>
+  </div>
+</div>
