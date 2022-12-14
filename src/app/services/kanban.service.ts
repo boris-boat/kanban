@@ -6,7 +6,7 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class KanbanService {
-  url: string = "https://podsetnik.herokuapp.com/"
+  url: string = "https://podsetnik.herokuapp.com/kanban"
   activeUser: any
   constructor(private http: HttpClient, private router: Router) { }
   getUser() {
