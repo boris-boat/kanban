@@ -6,6 +6,10 @@ Welcome to my kanban board github repo
 
 The Kanban board is a tool for workflow visualization, designed to help you bring clarity to your work process and enhance efficiency by limiting work in progress. 
 
+## Live site 
+
+https://boardoftypekanban.netlify.app/
+
 ## Technologies used
 
 Front end : Angular
