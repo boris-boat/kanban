@@ -19,7 +19,7 @@
     <div class="board-bar">
       <div class="columns is-vcentered">
         <div class="column is-1" style="padding: 0">
-          <div class="board-name">{{ user.username }}'s board</div>
+          <div class="board-name">{{ user!.username }}'s board</div>
         </div>
         <div class="column is-2">
           <button
@@ -71,7 +71,7 @@
     </div>
     <div class="board-wrapper">
       <div class="board-columns" cdkDropListGroup>
-        <div class="board-column" *ngFor="let column of user.columns">
+        <div class="board-column" *ngFor="let column of user!.columns">
           <div class="column-title">
             <div class="columns">
               <div class="column is-11">

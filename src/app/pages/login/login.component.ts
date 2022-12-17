@@ -2,6 +2,7 @@ import { KanbanService } from './../../services/kanban.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -26,16 +27,17 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.isLoading = true
-    this.service.login(this.form.value).subscribe((res) => {
+    this.service.login(this.form.value).subscribe((res: any) => {
       if (!res) {
         this.notifierService.notify('error', 'Wrong login credentials');
         setTimeout(() => {
           this.form.reset()
           this.isLoading = false
-          this.notifierService.hideAll()
         }, 500);
       }
-      this.service.setActiveUser(res)
+      console.log(res)
+      console.log(new User(res))
+      if (res) this.service.setActiveUser(new User(res))
     }
     )
   }
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
         this.form.reset()
       }
       else {
-        this.notifierService.notify('sucess', 'User created');
+        this.notifierService.notify('success', 'User created');
         this.form.reset()
         this.switchForms()
       }
