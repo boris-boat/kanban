@@ -28,21 +28,23 @@ export class LoginComponent implements OnInit {
 
     this.isLoading = true
     this.service.login(this.form.value).subscribe((res: any) => {
-      if (!res) {
+
+      if (res.token) {
+        this.service.setActiveUser(new User(res))
+      }
+      else {
         this.notifierService.notify('error', 'Wrong login credentials');
         setTimeout(() => {
           this.form.reset()
           this.isLoading = false
         }, 500);
       }
-      console.log(res)
-      console.log(new User(res))
-      if (res) this.service.setActiveUser(new User(res))
     }
     )
   }
   signUp() {
     this.service.createUser(this.form.value).subscribe((res: any) => {
+
       if (res.text) {
         this.notifierService.notify('error', 'Username exists');
         this.form.reset()
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit {
 
   }
   switchForms() {
+
     this.show.signUp = !this.show.signUp
     this.show.signIn = !this.show.signIn
   }
