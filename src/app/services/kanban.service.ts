@@ -3,25 +3,23 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { User } from '../models/user.model';
+import { CREATE_USER_URL, LOGIN_URL, SAVE_USER_URL } from '../constants/url.constants';
 @Injectable({
   providedIn: 'root'
 })
 export class KanbanService {
-  url: string = "https://podsetnik.herokuapp.com/kanban"
   activeUser: User | null = null
   constructor(private http: HttpClient, private router: Router) { }
   getUser() {
     return of(this.activeUser)
   }
   saveUser(user: User) {
-    return this.http.post(this.url + "/updateUser", user)
-
-
+    return this.http.post(SAVE_USER_URL, user)
   }
   login(data: any) {
-    return this.http.post(this.url + "/getUser", data)
+    return this.http.post(LOGIN_URL, data)
   }
-  setActiveUser(user: any) {
+  setActiveUser(user: User) {
     if (user) {
       this.activeUser = new User(user)
       this.router.navigate(['/home'])
@@ -31,8 +29,8 @@ export class KanbanService {
 
     }
   }
-  createUser(user: any) {
-    return this.http.post(this.url + "/createUser", user)
+  createUser(user: User) {
+    return this.http.post(CREATE_USER_URL, user)
 
   }
 }

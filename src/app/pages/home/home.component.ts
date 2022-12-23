@@ -53,13 +53,10 @@ export class HomeComponent implements OnInit {
     if (this.user) {
 
       let res = this.user.columns.find((column: Column) => column.name === this.newColumn.value)
-      console.log(res)
-      //ovde daje undefined
       if (!res) {
         this.user.columns.push(new Column({ name: this.newColumn.value, items: [] }))
         this.newColumn.reset()
         this.service.saveUser(this.user).subscribe((res) => {
-          console.log(res)
         })
       }
       else {
