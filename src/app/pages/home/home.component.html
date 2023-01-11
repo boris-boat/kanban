@@ -1,16 +1,22 @@
 <div class="root">
   <div class="navbar nav-wrapper">
-    <div class="columns navbar-items has-background-dark">
-      <div class="column is-10">
+    <div class="columns navbar-items has-background-dark is-flex-mobile">
+      <div class="column is-11 is-10-desktop">
         <div class="navbar-brand">
           <div class="navbar-item">
             <h1 class="app-name has-gradient-text">Kanban</h1>
           </div>
         </div>
       </div>
-      <div class="column is-right mt-1">
+      <div
+        class="column mt-1 is-3-mobile is-justify-content-center is-flex is-align-items-center"
+      >
         <div class="navbar-item">
-          <h1 class="logout-btn" (click)="logout()">Logout</h1>
+          <!-- <h1 class="logout-btn" (click)="logout()">Logout</h1> -->
+          <i
+            class="logout-btn fa-solid fa-arrow-right-from-bracket fa-xl"
+            (click)="logout()"
+          ></i>
         </div>
       </div>
     </div>
@@ -35,7 +41,10 @@
             {{ show.editItems ? "Hide Edit" : "Edit Items" }}
           </button>
         </div>
-        <div class="column addItemsWrapper" *ngIf="show.addItems">
+        <div
+          class="column addItemsWrapper animate__animated animate__fadeInLeft"
+          *ngIf="show.addItems"
+        >
           <div class="columns is-vcentered add-items">
             <div class="column is-2">
               <input
