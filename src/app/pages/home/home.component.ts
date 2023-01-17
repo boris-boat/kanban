@@ -40,11 +40,11 @@ export class HomeComponent implements OnInit {
         event.currentIndex,
       );
     }
-    this.service.saveUser(new User(this.user)).subscribe((res) => console.log(res))
+    this.service.saveUser(new User(this.user)).subscribe((res) => { })
   }
   logout() {
     this.user = null
-    this.router.navigate(['/'])
+    window.location.reload()
   }
   addItemsShow() {
     this.show.addItems = !this.show.addItems
@@ -82,9 +82,7 @@ export class HomeComponent implements OnInit {
   }
   removeItem(itemToDelete: any, columnToEdit: any) {
     if (this.user) {
-
       columnToEdit.items = columnToEdit.items.filter((item: Item) => item._id != itemToDelete._id)
-
       let index = this.user.columns.findIndex((column: Column) => column.name === columnToEdit.name)
       this.user.columns[index] = columnToEdit
       this.service.saveUser(this.user).subscribe((res: any) => {

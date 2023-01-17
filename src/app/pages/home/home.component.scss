@@ -131,3 +131,9 @@
   margin: 0;
   padding: 0;
 }
+.grabbable {
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}

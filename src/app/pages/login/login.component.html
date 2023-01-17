@@ -35,6 +35,14 @@
             ><span><a (click)="switchForms()">Sign up</a></span>
           </div>
         </div>
+        <div class="googleButton"></div>
+        <!-- <div class="columns">
+          <div
+            id="g_id_onload"
+            data-client_id="57466034113-oflg64kqeia1k2ua99fgs35g2tcbn034.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse"
+          ></div>
+        </div> -->
       </form>
       <form *ngIf="show.signUp" class="box column is-3" [formGroup]="form">
         <div class="field">
@@ -74,4 +82,3 @@
     </div>
   </div>
 </div>
-
