@@ -4,7 +4,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { User } from '../models/user.model';
-import { CREATE_USER_URL, LOGIN_URL, SAVE_USER_URL } from '../constants/url.constants';
+import { CREATE_USER_URL, LOGIN_URL, SAVE_USER_URL, GOOGLE_AUTH } from '../constants/url.constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +15,7 @@ export class KanbanService {
     return of(this.activeUser)
   }
   saveUser(user: User) {
-    return this.http.post(SAVE_USER_URL, user)
+    return this.http.post<User>(SAVE_USER_URL, user)
   }
   login(data: any) {
     return this.http.post(LOGIN_URL, data)
@@ -34,10 +34,12 @@ export class KanbanService {
     return this.http.post(CREATE_USER_URL, user)
   }
   googleAuth(googleResponse: any) {
-    return this.http.post("http://localhost:3001/kanban/googleAuth", { username: googleResponse.given_name + " " + googleResponse.family_name })
+    // return this.http.post("http://localhost:3001/kanban/googleAuth", { googleResponse })
+    return this.http.post<User>(GOOGLE_AUTH, { googleResponse })
+
   }
 
-  goTo(comp: any) {
+  goTo(comp: string) {
     this.ngZone.run(() => {
       this.router.navigate([comp])
     });

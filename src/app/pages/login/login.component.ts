@@ -47,14 +47,13 @@ export class LoginComponent implements OnInit {
 
     }
   }
-  handleCredentialResponse = (response: any) => {
+  handleCredentialResponse = (response: CredentialResponse) => {
     let base64Url = response.credential.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    //console.log(JSON.parse(jsonPayload));
-    this.service.googleAuth(JSON.parse(jsonPayload)).subscribe((res: any) => {
+    this.service.googleAuth(JSON.parse(jsonPayload)).subscribe((res: User) => {
       this.service.setActiveUser(res)
     })
   }
@@ -62,9 +61,10 @@ export class LoginComponent implements OnInit {
     this.isLoading = true
     if (this.form.value) {
       this.service.login(this.form.value).subscribe((res: any) => {
-
         if (res.token) {
           this.service.setActiveUser(new User(res))
+          // @ts-ignore
+          google.accounts.id.cancel()
         }
         else {
           this.notifierService.notify('error', 'Wrong login credentials');
@@ -103,7 +103,5 @@ export class LoginComponent implements OnInit {
     this.show.signUp = !this.show.signUp
     this.show.signIn = !this.show.signIn
   }
-  googleAuth() {
 
-  }
 }

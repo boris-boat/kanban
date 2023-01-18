@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   }
   getUser() {
     this.service.getUser().subscribe((res: any) => {
+      console.log(res)
       if (!res) this.router.navigate(['/'])
       this.user = res
     })
@@ -51,7 +52,6 @@ export class HomeComponent implements OnInit {
   }
   addColumn() {
     if (this.user) {
-
       let res = this.user.columns.find((column: Column) => column.name === this.newColumn.value)
       if (!res) {
         this.user.columns.push(new Column({ name: this.newColumn.value, items: [] }))
@@ -68,16 +68,15 @@ export class HomeComponent implements OnInit {
   }
   addItem() {
     if (this.user) {
-
       this.user.columns[0].items.push({ text: this.newItem.value })
       this.newItem.reset()
-      this.service.saveUser(this.user).subscribe((res: any) => { this.user = res })
+      this.service.saveUser(this.user).subscribe((res: User) => { this.user = res })
     }
   }
   removeColumn(data: any) {
     if (this.user) {
       this.user.columns = this.user.columns.filter((item: Column) => item.name !== data.name)
-      this.service.saveUser(this.user).subscribe((res: any) => { this.user = res })
+      this.service.saveUser(this.user).subscribe((res: User) => { this.user = res })
     }
   }
   removeItem(itemToDelete: any, columnToEdit: any) {
@@ -85,7 +84,7 @@ export class HomeComponent implements OnInit {
       columnToEdit.items = columnToEdit.items.filter((item: Item) => item._id != itemToDelete._id)
       let index = this.user.columns.findIndex((column: Column) => column.name === columnToEdit.name)
       this.user.columns[index] = columnToEdit
-      this.service.saveUser(this.user).subscribe((res: any) => {
+      this.service.saveUser(this.user).subscribe((res: User) => {
         this.user = res
       })
     }
